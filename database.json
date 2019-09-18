@@ -1,0 +1,31 @@
+{
+  "jack": [
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "genre": "Science Fiction"
+    },
+    {
+      "title": "This Side of Paradise",
+      "author": "F. Scott Fitzgerald",
+      "genre": "Fiction"
+    },
+    {
+      "title": "Diary of a Wimpy Kid",
+      "author": "Jeff Kinney",
+      "genre": "Fiction"
+    },
+    {
+      "title": "Saga (Vol.1)",
+      "author": "Brain K. Vaughn",
+      "genre": "Comic"
+    }
+  ],
+  "jill": [
+    {
+      "title": "Looking For Alaska",
+      "author": "John Greene",
+      "genre": "Young Adult Fiction"
+    }
+  ]
+}
