@@ -13,6 +13,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/add',
     function(req,res) {
+        console.log(req.body)
         database.get(app.user.username)
         .push(req.body)
         .write();
@@ -21,6 +22,7 @@ router.post('/add',
 
 router.post('/edit',
     function(req,res) {
+        console.log(req.body);
         database.get(app.user.username)
         .remove({"title":req.body.title})
         .write();
@@ -32,6 +34,7 @@ router.post('/edit',
 
 router.post('/delete',
     function(req,res) {
+        console.log(req.body);
         database.get(app.user.username)
         .remove(req.body)
         .write();

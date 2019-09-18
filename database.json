@@ -6,19 +6,24 @@
       "genre": "Science Fiction"
     },
     {
-      "title": "This Side of Paradise",
-      "author": "F. Scott Fitzgerald",
-      "genre": "Fiction"
+      "title": "The Lion, The Witch, and the Wardrobe",
+      "author": "C.S. Lewis",
+      "genre": "Fantasy"
     },
     {
-      "title": "Diary of a Wimpy Kid",
-      "author": "Jeff Kinney",
-      "genre": "Fiction"
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "genre": "Fantasy"
     },
     {
-      "title": "Saga (Vol.1)",
-      "author": "Brain K. Vaughn",
-      "genre": "Comic"
+      "title": "Dracula",
+      "author": "Bram Stoker",
+      "genre": "Drama"
+    },
+    {
+      "title": "Catcher in the Rye",
+      "author": "J.D. Salinger",
+      "genre": "Fiction"
     }
   ],
   "jill": [

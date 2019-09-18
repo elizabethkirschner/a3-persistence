@@ -8,11 +8,6 @@ var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db');
 var user; // i think to logout set to null
-// lowdb
-//const low = require('lowdb');
-//const FileSync = require('lowdb/adapters/FileSync');
-//const adapter = new FileSync('database.json');
-//const database = low(adapter);
 //routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

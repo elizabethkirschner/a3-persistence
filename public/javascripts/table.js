@@ -1,27 +1,27 @@
 
-    var table // table needs to be global
-    var row // need the row to set up edit
-    var editButton
-    var formDisplayStyle
-    var addButtonDisplayStyle
-    var isEdit
+var table // table needs to be global
+var row // need the row to set up edit
+var editButton
+var formDisplayStyle
+var addButtonDisplayStyle
+var isEdit
 
-    const displayTable = function( json ) {
-      console.log( json )
+const displayTable = function( json ) {
+  console.log( json )
 
-      var col = [];
-      for (var i = 0; i < json.length; i++) {
-        for (var key in json[i]) {
-          if (col.indexOf(key) === -1) {
-            col.push(key);
-          }
-        }
+  var col = [];
+  for (var i = 0; i < json.length; i++) {
+    for (var key in json[i]) {
+      if (col.indexOf(key) === -1) {
+        col.push(key);
       }
-      // CREATE DYNAMIC TABLE.
-      table.innerHTML = ""
+    }
+  }
+  // CREATE DYNAMIC TABLE.
+  table.innerHTML = ""
 
-      // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-      var tr = table.insertRow(-1)                   // TABLE ROW.
+  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+  var tr = table.insertRow(-1)                   // TABLE ROW.
 
       for (var i = 0; i < col.length; i++) { // change this 
         var th = document.createElement( "th" )      
@@ -37,17 +37,26 @@
           var tabCell = tr.insertCell(-1)
           tabCell.innerHTML = json[i][col[j]]
         }
+        var x = document.createElement("INPUT");
+        x.setAttribute("type", "checkbox");
+        x.onclick = function() {
+          row = this.parentNode
+          //console.log(row)
+          var inputs = document.getElementsByTagName("input");
+          for(var i = 0; i < inputs.length; i++) {
+            if(inputs[i].type == "checkbox") {
+              inputs[i].checked = false; 
+            }  
+          }
+          this.checked= true;
+          document.getElementById( "editEntryButton" ).style.display = "block"
+        }
+        tr.append(x)
       }
 
     var divContainer = document.getElementById( "table" )
     divContainer.innerHTML = ""
     divContainer.appendChild(table)
-
-    table.addEventListener('click', function( event ) {
-      row = event.target.parentNode
-      row.appendChild(editButton)
-      document.getElementById( "editEntryButton" ).style.display = "block"
-    })
   }
 
   const submit = function( e ) { 
@@ -64,6 +73,7 @@
                    'genre':genre.value,
                  },
           body = JSON.stringify( json )
+          console.log( json )
 
           document.querySelector( '#title' ).value = ""
           document.querySelector( '#author' ).value = ""
@@ -71,10 +81,10 @@
 
     fetch( '/data/add', {
       method:'POST',
-      body 
+      body, 
+      headers: {'Content-Type':'application/json'}
     })
     .then( function( response ) {
-      document.getElementById("confirm").innerHTML = "Submitted Successfully!"
       console.log( response )
       return response.json()
     }).then( function( json ) {
@@ -100,12 +110,13 @@
 
     document.getElementById( "formDisplay" ).style.display = "none"
     document.getElementById( "addNewEntry" ).style.display = "block"
+    document.getElementById( "editEntryButton" ).style.display = "block"
 
     const entryKey = row.firstElementChild.innerHTML,
           title = document.querySelector( '#title' ),
           author = document.querySelector( '#author' ),
           genre = document.querySelector( '#genre' ),
-          json = { 'entryKey': entryKey,
+          json = { 'title': entryKey,
                    'newEntry': 
                    {
                     'title':title.value,
@@ -117,17 +128,19 @@
 
     document.querySelector( '#title' ).value = ""
     document.querySelector( '#author' ).value = ""
-    document.querySelector( '#genre' ).value = ""         
+    document.querySelector( '#genre' ).value = ""      
+    console.log(body)   
 
     fetch('/data/edit', {
       method: 'POST',
-      body
+      body,
+      headers: {'Content-Type':'application/json'}
     })
     .then( function ( response ) {
       console.log( response )
       return response.json()
     })
-    .then (function( json ){
+    .then (function( json ) {
       displayTable( json );
     })
     return false
@@ -146,7 +159,8 @@
 
     fetch('/data/delete', {
       method: 'POST',
-      body
+      body,
+      headers: {'Content-Type':'application/json'}
     })
     .then( function ( response ) {
       console.log( response )
@@ -156,7 +170,6 @@
       displayTable( json );
     })
     return false
-    
   }
 
   const editData = function() {
@@ -166,21 +179,22 @@
     document.querySelector( '#genre' ).value = row.children[2].innerHTML 
 
     document.getElementById( "deleteEntryButton" ).style.display = "block"
+    document.getElementById( "editEntryButton" ).style.display = "none"
 
     document.getElementById( "formDisplay" ).style.display = "block"
     document.getElementById( "addNewEntry" ).style.display = "none"
     const deleteButton = document.getElementById( 'deleteEntryButton' )
     deleteButton.onclick = function() {
       document.getElementById( "formDisplay" ).style.display = "none"
+      document.getElementById( "editEntryButton" ).style.display = "none"
       document.getElementById( "addNewEntry" ).style.display = "block"
-
       submitDelete()
-
     }
     const cancelButton = document.getElementById( 'cancelEditButton' )
     cancelButton.onclick = function() {
       console.log("clicked")
       document.getElementById( "formDisplay" ).style.display = "none"
+      document.getElementById( "editEntryButton" ).style.display = "block"
       document.getElementById( "addNewEntry" ).style.display = "block"
 
       document.querySelector( '#title' ).value = ""
@@ -197,7 +211,6 @@
     document.getElementById( "deleteEntryButton" ).style.display = "none"
     const cancelButton = document.getElementById( 'cancelEditButton' )
     cancelButton.onclick = function() {
-      console.log("clicked")
       document.getElementById( "formDisplay" ).style.display = "none"
       document.getElementById( "addNewEntry" ).style.display = "block"    
     }
@@ -206,7 +219,6 @@
   }
 
   window.onload = function() {
-      console.log("helllllo")
     const newEntryButton = document.getElementById( 'addNewEntry' )
     newEntryButton.onclick = displayForm
 

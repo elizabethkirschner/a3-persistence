@@ -2,7 +2,7 @@ extends layout
 
 block content
     script(src="/javascripts/table.js")
-    p Hello #{user}
+    h1 Hello #{user}
     p(id="table")
     p(id="alert")
     div(id="formDisplay")
@@ -16,8 +16,9 @@ block content
             label(for='genre') Genre
             input(type='text' id='genre' value="" required)
             br
-            button(id='button1') Save
-        button(id="deleteEntryButton") Delete Entry
-        sbutton(id="cancelEditButton") Cancel
-    button(id="editEntryButton") Edit Entry
-    button(id="addNewEntry") New Entry
+            button(id='button1') Save  
+            button(id="cancelEditButton") Cancel
+            button(id="deleteEntryButton") Delete Entry
+    div    
+        button(id="editEntryButton") Edit Entry
+        button(id="addNewEntry") New Entry
