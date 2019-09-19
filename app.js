@@ -6,6 +6,7 @@ var createError = require('http-errors'),
     Strategy = require('passport-local').Strategy,
     db = require('./db'),
     helmet = require('helmet'),
+    flash = require('connect-flash'),
     //routes
     indexRouter = require('./routes/index'),
     //usersRouter = require('./routes/users'),
@@ -40,14 +41,15 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(require('express-session')({secret: 'keyboard cat', resave:false,saveUninitialized: false})); //1
-app.use(helmet()) // 2
-app.use(passport.initialize()); // 3
+app.use(require('express-session')({secret: 'keyboard cat', resave:false,saveUninitialized: false})); 
+app.use(require('body-parser').urlencoded({extended:true}));
+
+app.use(helmet()) // 1
+app.use(passport.initialize()); // 2
 app.use(passport.session());
-app.use(express.static('public')); // 4
-app.use(express.json()); // 5
-app.use(require('body-parser').urlencoded({extended:true})); // 6
-app.use(logger('dev')); // 7
+app.use(express.static('public')); // 3
+app.use(express.json()); // 4
+app.use(logger('dev')); // 5
 
 // routes
 app.use('/', indexRouter);
