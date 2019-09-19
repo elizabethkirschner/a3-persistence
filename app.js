@@ -1,19 +1,17 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-// passport  
-var passport = require('passport');
-var Strategy = require('passport-local').Strategy;
-var db = require('./db');
-var user; // i think to logout set to null
-//routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login');
-var dataRouter = require('./routes/data');
-
+var createError = require('http-errors'),
+    express = require('express'),
+    path = require('path'),
+    logger = require('morgan'),
+    passport = require('passport'),
+    Strategy = require('passport-local').Strategy,
+    db = require('./db'),
+    helmet = require('helmet'),
+    //routes
+    indexRouter = require('./routes/index'),
+    //usersRouter = require('./routes/users'),
+    loginRouter = require('./routes/login'),
+    dataRouter = require('./routes/data'),
+    user; 
 
 passport.use(new Strategy(
   function(username, password, cb) {
@@ -42,26 +40,18 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-//app.use(logger('dev'));
-app.use(express.json()); //1
-//app.use(express.urlencoded({ extended: false }));
-//app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(require('morgan')('combined')); //3
-app.use(require('body-parser').urlencoded({extended:true})); //3
-app.use(require('express-session')({secret: 'keyboard cat', resave:false,saveUninitialized: false}));
-
-app.use(passport.initialize()); // 2
+app.use(require('express-session')({secret: 'keyboard cat', resave:false,saveUninitialized: false})); //1
+app.use(helmet()) // 2
+app.use(passport.initialize()); // 3
 app.use(passport.session());
-
-//app.use("/public/javascripts", express.static("./outJavascripts"));
-//app.use('/static', express.static(path.join(__dirname, 'public')))
-app.use(express.static('public')); //4
+app.use(express.static('public')); // 4
+app.use(express.json()); // 5
+app.use(require('body-parser').urlencoded({extended:true})); // 6
+app.use(logger('dev')); // 7
 
 // routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+//app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/data', dataRouter);
 app.use('/data/add', dataRouter);

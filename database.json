@@ -1,16 +1,6 @@
 {
   "jack": [
     {
-      "title": "1984",
-      "author": "George Orwell",
-      "genre": "Science Fiction"
-    },
-    {
-      "title": "The Lion, The Witch, and the Wardrobe",
-      "author": "C.S. Lewis",
-      "genre": "Fantasy"
-    },
-    {
       "title": "The Hobbit",
       "author": "J.R.R. Tolkien",
       "genre": "Fantasy"
@@ -24,6 +14,11 @@
       "title": "Catcher in the Rye",
       "author": "J.D. Salinger",
       "genre": "Fiction"
+    },
+    {
+      "title": "1984",
+      "author": "George Orwell",
+      "genre": "Science Fiction"
     }
   ],
   "jill": [

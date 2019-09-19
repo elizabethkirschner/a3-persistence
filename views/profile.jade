@@ -5,7 +5,7 @@ block content
     h1 Hello #{user}
     p(id="table")
     p(id="alert")
-    div(id="formDisplay")
+    div(id="formDiv")
         form(id='form' action="")
             label(for="title") Title
             input(type='text' id='title' value="" required)
@@ -16,9 +16,9 @@ block content
             label(for='genre') Genre
             input(type='text' id='genre' value="" required)
             br
-            button(id='button1') Save  
-            button(id="cancelEditButton") Cancel
-            button(id="deleteEntryButton") Delete Entry
+            button(id='saveButton') Save  
+            button(id="cancelButton") Cancel
+            button(id="deleteButton") Delete Entry
     div    
-        button(id="editEntryButton") Edit Entry
-        button(id="addNewEntry") New Entry
+        button(id="editButton") Edit Entry
+        button(id="addButton") New Entry
